@@ -48,6 +48,7 @@ model Day {
 	name			String
 	start			String
 	end				String
+	breaks			Int
 	// Days to Timesheet Relation
 	timesheetId		String
 	timesheet 		Timesheet @relation(fields: [timesheetId], references: [id])

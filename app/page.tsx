@@ -2,8 +2,14 @@
 import { prisma } from "@/lib/prisma";
 import { TimesheetItem } from "@/components/TimesheetItem";
 
-function getTimesheets() {
-    return prisma.timesheet.findMany();
+async function getTimesheets() {
+    const timesheets = await prisma.timesheet.findMany({
+        include: {
+            days: true,
+        },
+    });
+
+    return timesheets;
 }
 
 export default async function Home() {
@@ -20,12 +26,6 @@ export default async function Home() {
             </header>
             <section className="flex flex-col gap-10">
                 <ul className="flex  flex-col gap-2">
-                    <li className="cursor-pointer bg-slate-700 text-white hover:bg-slate-500 py-2 px-4 rounded">
-                        Data coming soon
-                    </li>
-                    <li className="cursor-pointer bg-slate-700 text-white hover:bg-slate-500 py-2 px-4 rounded">
-                        Data coming soon
-                    </li>
                     {timesheets.map((timesheet) => (
                         <TimesheetItem key={timesheet.id} {...timesheet} />
                     ))}
