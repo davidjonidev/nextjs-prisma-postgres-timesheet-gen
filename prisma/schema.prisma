@@ -1,0 +1,57 @@
+// schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+//   previewFeatures = ["jsonProtocol"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+}
+
+model User {
+	id				String       @default(cuid()) @id
+	name			String?
+	email			String?   @unique
+	createdAt		DateTime  @default(now()) @map(name: "created_at")
+	updatedAt		DateTime  @updatedAt @map(name: "updated_at")
+	// Timesheets to User Relation
+	timesheets		Timesheet[]
+
+	// Map model as "users"
+	@@map(name: "users")
+}
+
+model Timesheet {
+	id 				String @default(cuid()) @id
+	clientName 		String
+	employeeName 	String
+	position 		String
+	supervisor 		String
+	workerCategory 	String
+	weekEnding 		String
+	// Timesheets to User Relation
+	authorId  		String
+	author    		User   @relation(fields: [authorId], references: [id])
+	// Days to Timesheet Relation
+	days 			Day[]
+	createdAt 		DateTime @default(now())
+
+	// Map model as "timesheets"
+	@@map(name: "timesheets")
+}
+
+model Day {
+	id				String       @default(cuid()) @id
+	name			String
+	start			String
+	end				String
+	// Days to Timesheet Relation
+	timesheetId		String
+	timesheet 		Timesheet @relation(fields: [timesheetId], references: [id])
+
+	// Map model as "days"
+	@@map(name: "days")
+}
