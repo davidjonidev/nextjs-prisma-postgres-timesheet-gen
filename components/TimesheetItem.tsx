@@ -59,7 +59,7 @@ export function TimesheetItem({
                     <p>{weekEnding}</p>
                 </div>
             </div>
-            {days.map((day) => (
+            {/* {days.map((day) => (
                 <React.Fragment key={day.id}>
                     <div className="w-full flex justify-between">
                         <div className="bg-slate-500 p-2">{day.name}</div>
@@ -68,6 +68,9 @@ export function TimesheetItem({
                         <div>{day.breaks}</div>
                     </div>
                 </React.Fragment>
+            ))} */}
+            {days.map((day) => (
+                <DaysItem key={day.id} {...day} />
             ))}
         </div>
     );
