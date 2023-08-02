@@ -1,6 +1,6 @@
 // import Image from "next/image";
 import { prisma } from "@/lib/prisma";
-import { TimesheetItem } from "@/components/TimesheetItem";
+import TimesheetForm from "@/components/TimesheetForm";
 
 async function getTimesheets() {
     const timesheets = await prisma.timesheet.findMany({
@@ -25,11 +25,7 @@ export default async function Home() {
                 <hr className="bg-slate-700 h-1 w-full rounded" />
             </header>
             <section className="flex flex-col gap-10">
-                <ul className="flex  flex-col gap-2">
-                    {timesheets.map((timesheet) => (
-                        <TimesheetItem key={timesheet.id} {...timesheet} />
-                    ))}
-                </ul>
+                <TimesheetForm />
             </section>
         </main>
     );
