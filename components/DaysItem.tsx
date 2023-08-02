@@ -9,11 +9,26 @@ type DaysProps = {
 };
 export function DaysItem({ id, name, start, end, breaks }: DaysProps) {
     return (
-        <p className="cursor-pointer bg-slate-700 text-white hover:bg-slate-500 py-2 px-4 rounded flex gap-2 justify-evenly">
-            <p>{name}</p>
-            <p>{start}</p>
-            <p>{end}</p>
-            <p>{breaks}</p>
-        </p>
+        <div className="cursor-pointer rounded flex flex-col gap-2 justify-evenly">
+            <h4>{name}</h4>
+            <table className="table-fixed border">
+                <tbody>
+                    <tr className="border-b">
+                        <td className="whitespace-nowrap border-r font-bold">
+                            Start Time
+                        </td>
+                        <td className="whitespace-nowrap border-r">{start}</td>
+                        <td className="whitespace-nowrap border-r font-bold">
+                            End Time
+                        </td>
+                        <td className="whitespace-nowrap border-r">{end}</td>
+                        <td className="whitespace-nowrap border-r font-bold">
+                            Breaks
+                        </td>
+                        <td className="whitespace-nowrap border-r">{breaks}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     );
 }

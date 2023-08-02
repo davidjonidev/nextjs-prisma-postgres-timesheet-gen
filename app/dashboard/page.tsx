@@ -14,7 +14,7 @@ async function getTimesheets() {
 
 export default async function Home() {
     const timesheets = await getTimesheets();
-    // console.log(timesheets);
+    console.log(timesheets);
 
     return (
         <main className="container mx-auto min-h-screen p-24">
